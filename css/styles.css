@@ -773,3 +773,44 @@ button:focus-visible {
         transform: translateY(0);
     }
 }
+
+/* Google Maps Section */
+.cleanup-map-section {
+    background: linear-gradient(135deg, #E0F7FA 0%, #B3E5FC 100%);
+    padding: var(--spacing-xl) 0;
+}
+
+.cleanup-map-section h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.location-info {
+    color: var(--color-text-light);
+    font-size: var(--fs-small);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+}
+
+.google-maps-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: white;
+}
+
+.google-maps-container iframe {
+    display: block;
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .google-maps-container iframe {
+        height: 300px !important;
+    }
+}
+
