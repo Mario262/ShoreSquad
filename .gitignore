@@ -1,0 +1,40 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.idea/
+
+# Build & Distribution
+dist/
+build/
+*.log
+
+# IDE
+.vscode/launch.json
+.vscode/tasks.json
+*.swp
+*.swo
+*~
+.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Debug
+debug.log

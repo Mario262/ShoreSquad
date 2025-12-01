@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rally your crew, track weather, and hit the next beach cleanup with ShoreSquad - the dope map app for eco-warriors!">
+    <meta name="theme-color" content="#0077BE">
+    <title>ShoreSquad | Beach Cleanup Map & Crew Rally</title>
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%231ECC7A'>🌊</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo-emoji" aria-label="ShoreSquad">🌊</span>
+                <h1 class="logo-text">ShoreSquad</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#map" class="nav-link" data-section="map">Map</a></li>
+                <li><a href="#events" class="nav-link" data-section="events">Events</a></li>
+                <li><a href="#crew" class="nav-link" data-section="crew">My Crew</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Rally Your Crew, Clean the Shore</h2>
+                <p>Connect with eco-warriors, track real-time weather, and organize the most dope beach cleanups on the map.</p>
+                <div class="cta-group">
+                    <button class="btn btn-primary" id="create-event-btn" aria-label="Create a new beach cleanup event">
+                        🗺️ Create Event
+                    </button>
+                    <button class="btn btn-secondary" id="find-crew-btn" aria-label="Find nearby beach cleanup crews">
+                        👥 Find Crew
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="beach-illustration">
+                    <div class="sun"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="section map-section">
+        <div class="container">
+            <h2>Beach Cleanup Map</h2>
+            <div class="map-container">
+                <div id="map" class="map" role="application" aria-label="Interactive map showing beach cleanup events"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Widget -->
+    <section class="weather-widget">
+        <div class="container">
+            <h3>Conditions at Your Beach</h3>
+            <div id="weather-info" class="weather-info" role="region" aria-live="polite" aria-label="Current weather conditions">
+                <div class="weather-skeleton">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="section events">
+        <div class="container">
+            <h2>Upcoming Cleanups</h2>
+            <div id="events-list" class="events-grid" role="list">
+                <!-- Events populated by JavaScript -->
+                <div class="event-skeleton" role="listitem">
+                    <div class="skeleton"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crew Section -->
+    <section id="crew" class="section crew">
+        <div class="container">
+            <h2>My Crew</h2>
+            <div id="crew-list" class="crew-grid" role="list">
+                <p class="empty-state">Join or create a crew to see your team here!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal: Create Event -->
+    <div id="event-modal" class="modal" role="dialog" aria-labelledby="event-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h2 id="event-modal-title">Create Cleanup Event</h2>
+            <form id="event-form" aria-label="Create beach cleanup event form">
+                <div class="form-group">
+                    <label for="event-name">Event Name</label>
+                    <input type="text" id="event-name" required placeholder="e.g., Crystal Beach Cleanup">
+                </div>
+                <div class="form-group">
+                    <label for="event-date">Date & Time</label>
+                    <input type="datetime-local" id="event-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-location">Beach Location</label>
+                    <input type="text" id="event-location" required placeholder="Beach name or address">
+                </div>
+                <div class="form-group">
+                    <label for="event-description">Description</label>
+                    <textarea id="event-description" rows="3" placeholder="Details about the cleanup..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="event-crew-size">Expected Crew Size</label>
+                    <input type="number" id="event-crew-size" min="1" value="5">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Event</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Find Crew -->
+    <div id="crew-modal" class="modal" role="dialog" aria-labelledby="crew-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h2 id="crew-modal-title">Find & Join Crew</h2>
+            <div id="crew-search" class="crew-search">
+                <input type="text" id="crew-search-input" placeholder="Search crews by name or location...">
+                <div id="crew-results" class="crew-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ShoreSquad. Rally your crew. Clean the shore. <span aria-label="wave emoji">🌊</span></p>
+            <p class="accessibility-info">Built with accessibility in mind | <a href="#a11y" aria-label="Accessibility statement">Accessibility</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>
